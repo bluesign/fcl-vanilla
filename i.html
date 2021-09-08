@@ -125,7 +125,7 @@ var sendTransaction = async function() {
         fcl.transaction(document.getElementById('transaction').value),
         fcl.proposer(fcl.currentUser().authorization),
         fcl.payer(fcl.currentUser().authorization),
-        fcl.authorizers([fcl.currentUser().authorization]),
+        fcl.authorizations([fcl.currentUser().authorization]),
         fcl.ref(block.id),
       ])
 
