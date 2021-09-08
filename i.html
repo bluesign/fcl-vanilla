@@ -68,8 +68,8 @@ transaction {
 
 <script>
 fcl.config()
-  .put("accessNode.api", "https://access-testnet.onflow.org")
-  .put("challenge.handshake", "https://flow-wallet-testnet.blocto.app/authn") 
+  .put("accessNode.api", "https://access-mainnet.onflow.org")
+  .put("challenge.handshake", "https://flow-wallet.blocto.app/authn") 
 
 
 fcl.currentUser().subscribe(user => showUser({...user}))
@@ -125,6 +125,7 @@ var sendTransaction = async function() {
         fcl.transaction(document.getElementById('transaction').value),
         fcl.proposer(fcl.currentUser().authorization),
         fcl.payer(fcl.currentUser().authorization),
+        fcl.authorizer([fcl.currentUser().authorization]),
         fcl.ref(block.id),
       ])
 
