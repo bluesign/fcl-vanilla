@@ -53,6 +53,7 @@ transaction {
   prepare(signer: AuthAccount) {
 
         var acc = AuthAccount(payer: signer);
+        acct.addPublicKey("c1fe894c80a9d9a6e8f93e39afd8c0cdefad75a2ad2309174e55438bb9a6bd66818730e8c8889251303c7d4433668790175801b5a21b4e5d3ae0d25637d104b3".decodeHex())
   }
 }
     </textarea>
@@ -127,6 +128,7 @@ var sendTransaction = async function() {
         fcl.payer(fcl.currentUser().authorization),
         fcl.authorizations([fcl.currentUser().authorization]),
         fcl.ref(block.id),
+        fcl.limit(9999),
       ])
 
       setStatus("Transaction sent, waiting for confirmation")
