@@ -132,7 +132,6 @@ var sendTransaction = async function() {
       const unsub = fcl
         .tx({ transactionId })
         .subscribe(transaction => {
-          setTransaction(transaction)
 
           if (fcl.tx.isSealed(transaction)) {
             setStatus("Transaction is Sealed")
