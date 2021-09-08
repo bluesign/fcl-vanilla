@@ -9007,7 +9007,7 @@
 }));
 
     window.protobuf={};
-    window.protobuf = proto;
+    window.protobuf = proto.flow.access;
     window.protobuf.AccessAPI = AccessAPI;
     window.protobuf.Transaction = Transaction;
 
