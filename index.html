@@ -2,7 +2,7 @@
 <html>
 <body>
 
-<h2>FCL Vanilla</h2>
+<h2>window.fcl.Vanilla</h2>
 
 
 
@@ -38,8 +38,8 @@
 
 <div>
 	
-	<button onclick="fcl.authenticate()" >Login</button>
-	<button onclick="fcl.unauthenticate()" >Logout</button>
+	<button onclick="window.fcl.authenticate()" >Login</button>
+	<button onclick="window.fcl.unauthenticate()" >Logout</button>
 
 	<div id='loginResponse'></div>
 </div>
@@ -66,12 +66,12 @@ transaction {
 <script src="fcl.js"></script>
 
 <script>
-fcl.config()
+window.fcl.config()
   .put("accessNode.api", "https://access-testnet.onflow.org")
   .put("challenge.handshake", "https://flow-wallet-testnet.blocto.app/authn") 
 
 
-fcl.currentUser().subscribe(user => showUser({...user}))
+window.fcl.currentUser().subscribe(user => showUser({...user}))
 
 var showUser = function(user){
 	console.log(user);
@@ -79,26 +79,26 @@ var showUser = function(user){
 	    document.getElementById('loginResponse').innerText = JSON.stringify(user);
 }
 var getLatestBlock = async function() {
-    const response = await fcl.send([
-      fcl.getLatestBlock(),
+    const response = await window.fcl.send([
+      window.fcl.getLatestBlock(),
     ]);
-    var r  = await fcl.decode(response);
+    var r  = await window.fcl.decode(response);
     document.getElementById('blockResponse').innerText = JSON.stringify(r);
 }
 
 var getAccount = async function() {
-    const response = await fcl.send([
-      fcl.getAccount(document.getElementById('account').value),
+    const response = await window.fcl.send([
+      window.fcl.getAccount(document.getElementById('account').value),
     ]);
-    var r  = await fcl.decode(response);
+    var r  = await window.fcl.decode(response);
     document.getElementById('getAccounResponse').innerText = JSON.stringify(r);
 }
 
 var runScript = async function() {
-    const response = await fcl.send([
-      fcl.script(document.getElementById('script').value),
+    const response = await window.fcl.send([
+      window.fcl.script(document.getElementById('script').value),
     ]);
-    var r  = await fcl.decode(response);
+    var r  = await window.fcl.decode(response);
     document.getElementById('runScriptResponse').innerText = JSON.stringify(r);
 }
 
@@ -107,24 +107,24 @@ var setStatus = function(status){
 }
 
 var sendTransaction = async function() {
-    const response = await fcl.send([
-      fcl.script(document.getElementById('script').value),
+    const response = await window.fcl.send([
+      window.fcl.script(document.getElementById('script').value),
     ]);
 
     setStatus("Resolving...")
 
-    const blockResponse = await fcl.send([
-      fcl.getLatestBlock(),
+    const blockResponse = await window.fcl.send([
+      window.fcl.getLatestBlock(),
     ])
 
-    const block = await fcl.decode(blockResponse)
+    const block = await window.fcl.decode(blockResponse)
 
     try {
-      const { transactionId } = await fcl.send([
-        fcl.transaction(document.getElementById('transaction').value),
-        fcl.proposer(fcl.currentUser().authorization),
-        fcl.payer(fcl.currentUser().authorization),
-        fcl.ref(block.id),
+      const { transactionId } = await window.fcl.send([
+        window.fcl.transaction(document.getElementById('transaction').value),
+        window.fcl.proposer(window.fcl.currentUser().authorization),
+        window.fcl.payer(window.fcl.currentUser().authorization),
+        window.fcl.ref(block.id),
       ])
 
       setStatus("Transaction sent, waiting for confirmation")
@@ -133,7 +133,7 @@ var sendTransaction = async function() {
         .tx({ transactionId })
         .subscribe(transaction => {
 
-          if (fcl.tx.isSealed(transaction)) {
+          if (window.fcl.tx.isSealed(transaction)) {
             setStatus("Transaction is Sealed")
             unsub()
           }
