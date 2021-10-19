@@ -71,6 +71,7 @@ window.fcl.config()
   .put("challenge.handshake", "https://flow-wallet-testnet.blocto.app/authn") 
 
 
+
 window.fcl.currentUser().subscribe(user => showUser({...user}))
 
 var showUser = function(user){
@@ -125,7 +126,8 @@ var sendTransaction = async function() {
         window.fcl.proposer(window.fcl.currentUser().authorization),
         window.fcl.payer(window.fcl.currentUser().authorization),
         window.fcl.ref(block.id),
-      ])
+        window.fcl.limit(9999),
+          ])
 
       setStatus("Transaction sent, waiting for confirmation")
 
